@@ -1,0 +1,13 @@
+{% extends "tienda/base.html" %}
+{% block title %}Crear Producto{% endblock %}
+
+{% block content %}
+  <h1>Crear Nuevo Producto</h1>
+  <form method="post">
+    {% csrf_token %}
+    <!-- Renderizamos rapido: cada campo envuelto en <p> con labels y errores -->
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
+  <p><a href="{% url 'tienda:lista_productos' %}">Volver a la lista de productos</a></p>
+{% endblock %}

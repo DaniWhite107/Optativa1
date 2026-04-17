@@ -1,0 +1,14 @@
+{% extends "tienda/base.html" %}
+{% block title %}Lista de clientes{% endblock %}
+{% block content %}
+<h1>Lista de clientes</h1>
+<ul>
+    {% for cliente in clientes %}
+        <li>
+            <a href="{% url 'tienda:detalle_cliente' cliente.pk %}">{{ cliente.nombre }}</a>
+            <a class="btn primary" href="{% url 'tienda:editar_cliente' cliente.pk %}">Editar</a>
+            <a class="btn delete" href="{% url 'tienda:delete_cliente' cliente.pk %}">Eliminar</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

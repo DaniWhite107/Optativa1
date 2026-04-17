@@ -4,6 +4,8 @@
 
 {% block content %}
 <h1>Lista de productos</h1>
+<p> 
+<a class="btn primary" href="{% url 'tienda:crear_producto' %}">Nuevo producto</a>
 <ul>
     {% for p in productos %}
         <li>
