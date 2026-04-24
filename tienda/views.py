@@ -104,7 +104,12 @@ def editar_pedido_items(request, pk):
     producto = Producto.objects.all()
     productos_dict = {str(p.id): p for p in producto}
 
-    return render(request, "tienda/editar_pedido_items.html", {"pedido_form": pedido_form, "formset": formset, "productos_dict": productos_dict})
+    return render(request, "tienda/editar_pedido_items.html", {
+        "pedido": pedido,
+        "form": pedido_form, 
+        "formset": formset, 
+        "productos_dict": productos_dict
+        })
 
 '''
 Vista de detalle de un cleinte
@@ -182,3 +187,10 @@ def delete_cliente(request, pk):
 def lista_clientes(request):
     clientes = Cliente.objects.all().order_by("nombre")
     return render(request, "tienda/lista_clientes.html", {"clientes": clientes})
+
+def delete_pedido(request, pk):
+    pedido = get_object_or_404(Pedido, pk=pk)
+    if request.method == "POST":
+        pedido.delete()
+        return redirect("tienda:lista_pedidos")
+    return render(request, "tienda/eliminar_pedido.html", {"pedido": pedido})
