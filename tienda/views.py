@@ -3,6 +3,8 @@ from django.db import transaction
 from django.db.models import Sum, Count, F
 from .models import Producto, Pedido, Cliente
 from .forms import ProductoForm, ClienteForm, PedidoSimpleForm, PedidoItemFormSet
+from django.views.decorators.http import require_GET
+from core.ia.buscador import buscar_productos
 
 def home(request):
     return render(request, "tienda/home.html", {})
@@ -194,3 +196,12 @@ def delete_pedido(request, pk):
         pedido.delete()
         return redirect("tienda:lista_pedidos")
     return render(request, "tienda/eliminar_pedido.html", {"pedido": pedido})
+
+@require_GET
+def buscar_view(request):
+    q = request.GET.get("q", "")
+    resultados = buscar_productos(q, top_k=5) if q else []
+    return render(request, "tienda/buscar.html", {
+        "q": q,
+        "resultados": resultados,
+    })

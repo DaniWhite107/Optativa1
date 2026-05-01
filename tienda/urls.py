@@ -20,4 +20,7 @@ urlpatterns = [
     path("pedidos/nuevo/", views.crear_pedido_items, name="crear_pedido_items"),
     path("pedidos/<int:pk>/eliminar/", views.delete_pedido, name="delete_pedido"),
     path("clientes/<int:pk>/", views.detalle_cliente, name="detalle_cliente"),
+    path("buscar/", views.buscar_view, name="buscar"),
+
+
 ]
